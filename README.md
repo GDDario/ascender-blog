@@ -1,3 +1,5 @@
+![alt text](https://github.com/GDDario/ascender-blog/blob/main/assets/small-logo-white-white-text-and-transparent-bg.png.png)
+
 # Ascender Blog
 
 This is a backend-focused project with the objective of being a study project and maybe a future blogging platform.
