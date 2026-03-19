@@ -1,0 +1,22 @@
+{
+    "name": "ascender-blog/backend",
+    "description": "Monolith PHP backend",
+    "type": "project",
+    "require-dev": {
+        "phpstan/phpstan": "^2.1",
+        "friendsofphp/php-cs-fixer": "^3.94"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "AscenderBlog\\Backend\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "GDDario",
+            "email": "gd.dario.dev@gmail.com"
+        }
+    ],
+    "require": {}
+}
