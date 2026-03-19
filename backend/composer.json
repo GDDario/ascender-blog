@@ -9,7 +9,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "AscenderBlog\\Backend\\": "src/"
+            "AscenderBlog\\": "src/"
         }
     },
     "authors": [
@@ -18,5 +18,7 @@
             "email": "gd.dario.dev@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "php": "^8.4"
+    }
 }
