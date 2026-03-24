@@ -1,8 +1,10 @@
 <?php
 
-namespace AscenderBlog\Infrastructure\Http;
+namespace AscenderBlog\Infrastructure\Http\Route;
 
+use AscenderBlog\Infrastructure\Http\Controller;
 use AscenderBlog\Infrastructure\Http\Request\RequestMethod;
+use AscenderBlog\Infrastructure\Http\Route;
 use Exception;
 use ReflectionClass;
 use ReflectionException;
@@ -14,7 +16,6 @@ final class RouteRegistry
 
     public function __construct()
     {
-
     }
 
     public function get(string $path, string $controller, string $method): void
@@ -50,9 +51,9 @@ final class RouteRegistry
     ): void
     {
         try {
-        $reflection = new ReflectionClass($controller);
-        /** @var Controller $instance */
-        $instance = $reflection->newInstance();
+            $reflection = new ReflectionClass($controller);
+            /** @var Controller $instance */
+            $instance = $reflection->newInstance();
         } catch (ReflectionException $e) {
             throw new ControllerException('Controller not found.');
         }
@@ -73,6 +74,7 @@ final class RouteRegistry
     public function match(string $url, RequestMethod $method): Route
     {
         $routes = $this->routes;
+        $notFoundRoute = null;
 
         foreach ($routes as $index => $route) {
             if ($route->path === $url && $route->requestMethod === $method) {
@@ -80,9 +82,12 @@ final class RouteRegistry
             }
 
             // TODO: find routes by parameters, like /{id}
+            if ($route->path === '/404' && $route->requestMethod === RequestMethod::GET) {
+                $notFoundRoute = $route;
+            }
         }
 
-        throw new Exception('No route matches the given URL');
+        return $notFoundRoute ?? NotFoundRoute::build();
     }
 
 //    private function matchResources(string $url, RequestMethod $method, Route $route, array $resources): Route|null

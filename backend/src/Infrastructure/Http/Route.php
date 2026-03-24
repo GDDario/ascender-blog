@@ -4,7 +4,7 @@ namespace AscenderBlog\Infrastructure\Http;
 
 use AscenderBlog\Infrastructure\Http\Request\RequestMethod;
 
-final readonly class Route
+readonly class Route
 {
     public function __construct(
         public string $path,

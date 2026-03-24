@@ -2,7 +2,7 @@
 
 use AscenderBlog\Infrastructure\Http\Request;
 use AscenderBlog\Infrastructure\Http\Request\RequestMethod;
-use AscenderBlog\Infrastructure\Http\RouteRegistry;
+use AscenderBlog\Infrastructure\Http\Route\RouteRegistry;
 
 $url = $_SERVER['REQUEST_URI'];
 $method = RequestMethod::from(strtolower($_SERVER['REQUEST_METHOD']));
