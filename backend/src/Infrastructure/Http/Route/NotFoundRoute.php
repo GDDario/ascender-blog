@@ -27,10 +27,8 @@ final readonly class NotFoundController extends Controller
 {
     public function index(): array
     {
-        echo 'Not found';
-
         return [
-            'error' => 404,
+            'code' => 404,
             'message' => 'Resource not found.',
         ];
     }

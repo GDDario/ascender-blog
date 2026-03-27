@@ -19,4 +19,22 @@ $registry = require __DIR__ . '/routes.php';
 
 $route = $registry->match($url, $method);
 
-$route->controller->{$route->method}();
+$return = $route->controller->{$route->method}();
+
+if (is_array($return)) {
+    $json = json_encode($return);
+
+    if (!$json) {
+        header('Content-Type: application/json');
+
+        return [
+            'code' => 500,
+            'message' => 'Internal server error.',
+        ];
+    }
+
+    exit;
+}
+
+echo $return;
+exit;
