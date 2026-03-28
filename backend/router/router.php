@@ -22,17 +22,17 @@ $route = $registry->match($url, $method);
 $return = $route->controller->{$route->method}();
 
 if (is_array($return)) {
+    header('Content-Type: application/json');
     $json = json_encode($return);
 
     if (!$json) {
-        header('Content-Type: application/json');
-
-        return [
+        echo json_encode([
             'code' => 500,
             'message' => 'Internal server error.',
-        ];
+        ]);
     }
 
+    echo $json;
     exit;
 }
 
