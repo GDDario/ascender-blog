@@ -5,6 +5,7 @@ use AscenderBlog\Infrastructure\Http\Route\RouteRegistry;
 
 $registry = new RouteRegistry();
 
+$registry->get('/', TestController::class, 'index');
 $registry->get('/index', TestController::class, 'index');
 $registry->get('/paginate', TestController::class, 'index');
 $registry->get('/paginate/um', TestController::class, 'index');
