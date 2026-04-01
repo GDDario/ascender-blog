@@ -7,9 +7,9 @@ use PDO;
 final  class Connection
 {
     private const string DATABASE_NAME = 'ascender-blog';
-    private const string DATABASE_USER = 'ascender-blog';
-    private const string DATABASE_PASSWORD = 'ascender-blog';
-    private const string DATABASE_HOST = 'ascender-blog';
+    private const string DATABASE_USER = 'postgres';
+    private const string DATABASE_PASSWORD = 'password';
+    private const string DATABASE_HOST = 'localhost';
     private const string DATABASE_PORT = '5432';
 
     public static ?PDO $connection = null;
@@ -19,13 +19,7 @@ final  class Connection
             return self::connect();
         }
 
-        $host = self::DATABASE_HOST;
-        $port = self::DATABASE_PORT;
-        $name = self::DATABASE_NAME;
-        $user = self::DATABASE_USER;
-        $password = self::DATABASE_PASSWORD;
-
-        return new PDO("psql:host=$host;port=$port;dbname=$name", $user, $password);
+        return self::$connection;
     }
 
     public static function connect(): PDO {
@@ -35,7 +29,7 @@ final  class Connection
         $user = self::DATABASE_USER;
         $password = self::DATABASE_PASSWORD;
 
-        $pdo = new PDO("psql:host=$host;port=$port;dbname=$name", $user, $password);
+        $pdo = new PDO("pgsql:host=$host;port=$port;dbname=$name", $user, $password);
         self::$connection = $pdo;
 
         return $pdo;
