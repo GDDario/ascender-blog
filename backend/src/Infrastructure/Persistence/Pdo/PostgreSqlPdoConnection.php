@@ -1,10 +1,10 @@
 <?php
 
-namespace AscenderBlog\Infrastructure\Database\PostgreSQL;
+namespace AscenderBlog\Infrastructure\Persistence\Pdo;
 
 use PDO;
 
-final  class Connection
+final  class PostgreSqlPdoConnection
 {
     private const string DATABASE_NAME = 'ascender-blog';
     private const string DATABASE_USER = 'postgres';
