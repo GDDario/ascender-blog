@@ -15,9 +15,9 @@ final readonly class Request
      */
     public function __construct(
         public RequestMethod $method,
-        public string $url,
-        public stdClass $body,
-        public array $queryParameters
+        public string        $url,
+        public ?array        $body = null,
+        public ?array        $queryParameters = null
     )
     {
     }

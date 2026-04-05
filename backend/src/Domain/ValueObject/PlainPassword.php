@@ -6,7 +6,7 @@ namespace AscenderBlog\Domain\ValueObject;
 
 use AscenderBlog\Domain\Exception\InvalidValueObjectException;
 
-final  class Password implements ValueObject
+final  class PlainPassword implements ValueObject
 {
     private const string REAL_NAME_IN_WORDS = 'Password';
 
@@ -18,6 +18,11 @@ final  class Password implements ValueObject
     )
     {
         $this->validate($value);
+    }
+
+    public function toString(): string
+    {
+        return $this->value;
     }
 
     /**

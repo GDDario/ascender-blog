@@ -6,11 +6,13 @@ use AscenderBlog\Infrastructure\Http\Route\RouteRegistry;
 
 $url = $_SERVER['REQUEST_URI'];
 $method = RequestMethod::from(strtolower($_SERVER['REQUEST_METHOD']));
+$rawBody = file_get_contents('php://input');
+$body = json_decode($rawBody, true);
 
 $request = new Request(
     method: $method,
     url: $url,
-    body: new stdClass,
+    body: $body,
     queryParameters: $_GET
 );
 
@@ -19,7 +21,7 @@ $registry = require __DIR__ . '/routes.php';
 
 $route = $registry->match($url, $method);
 
-$return = $route->controller->{$route->method}();
+$return = $route->controller->{$route->method}($request);
 
 if (is_array($return)) {
     header('Content-Type: application/json');

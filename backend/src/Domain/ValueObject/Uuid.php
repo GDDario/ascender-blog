@@ -6,9 +6,9 @@ namespace AscenderBlog\Domain\ValueObject;
 
 use AscenderBlog\Domain\Exception\InvalidValueObjectException;
 
-final  class Email implements ValueObject
+final  class Uuid implements ValueObject
 {
-    private const string REAL_NAME_IN_WORDS = 'Email';
+    private const string REAL_NAME_IN_WORDS = 'Uuid';
 
     /**
      * @throws InvalidValueObjectException
@@ -30,7 +30,10 @@ final  class Email implements ValueObject
      */
     private function validate(string $value): void
     {
-        if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+        if (!preg_match(
+            '/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i',
+            $value
+        )) {
             throw InvalidValueObjectException::fromValueObject($this, $value);
         }
     }

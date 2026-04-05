@@ -6,9 +6,9 @@ namespace AscenderBlog\Domain\ValueObject;
 
 use AscenderBlog\Domain\Exception\InvalidValueObjectException;
 
-final  class Email implements ValueObject
+final  class Username implements ValueObject
 {
-    private const string REAL_NAME_IN_WORDS = 'Email';
+    private const string REAL_NAME_IN_WORDS = 'Username';
 
     /**
      * @throws InvalidValueObjectException
@@ -30,10 +30,21 @@ final  class Email implements ValueObject
      */
     private function validate(string $value): void
     {
-        if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
-            throw InvalidValueObjectException::fromValueObject($this, $value);
+        $value = trim($value);
+
+        if (mb_strlen($value) < 3) {
+            throw new InvalidValueObjectException('Username must have at least 3 characters');
         }
-    }
+
+        if (mb_strlen($value) > 32) {
+            throw new InvalidValueObjectException('Username cannot exceed 32 characters');
+        }
+
+        if (!preg_match('/^[\p{L}\s]+$/u', $value)) {
+            throw new InvalidValueObjectException('Username contains invalid characters');
+        }
+
+        $this->value = $value;    }
 
     public function getRealNameInWords(): string
     {
