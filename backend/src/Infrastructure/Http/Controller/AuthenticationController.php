@@ -12,6 +12,7 @@ use AscenderBlog\Domain\ValueObject\PlainPassword;
 use AscenderBlog\Domain\ValueObject\Username;
 use AscenderBlog\Infrastructure\Http\Controller;
 use AscenderBlog\Infrastructure\Http\Request;
+use AscenderBlog\Infrastructure\Presenter\RegistrationPresenter;
 
 final readonly class AuthenticationController extends Controller
 {
@@ -22,6 +23,7 @@ final readonly class AuthenticationController extends Controller
     public function register(Request $request): array
     {
         $registerUseCase = new RegisterUseCase();
+        $presenter = new RegistrationPresenter();
 
         $output = $registerUseCase->execute(
             new RegisterInputDTO(
@@ -32,14 +34,7 @@ final readonly class AuthenticationController extends Controller
                 passwordConfirmation: new PlainPassword($request->body['password_confirmation']),
             )
         );
-        $createdUser = $output->createdUser;
 
-        return [
-            'id' => $createdUser->id->toString(),
-            'username' => $createdUser->username->toString(),
-            'name' => $createdUser->name->toString(),
-            'email' => $createdUser->email->toString(),
-            'created_at' => $createdUser->createdAt->format('c')
-        ];
+        return $presenter->present($output->createdUser);
     }
 }
