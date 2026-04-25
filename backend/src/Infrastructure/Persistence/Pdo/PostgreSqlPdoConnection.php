@@ -10,7 +10,7 @@ final  class PostgreSqlPdoConnection
     private const string DATABASE_USER = 'postgres';
     private const string DATABASE_PASSWORD = 'password';
     private const string DATABASE_HOST = 'localhost';
-    private const string DATABASE_PORT = '5432';
+    private const string DATABASE_PORT = '5439';
 
     public static ?PDO $connection = null;
 

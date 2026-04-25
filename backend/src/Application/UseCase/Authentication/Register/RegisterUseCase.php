@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace AscenderBlog\Application\UseCase\Authentication\Register;
 
-
 use AscenderBlog\Domain\Entity\User;
+use AscenderBlog\Domain\Exception\DuplicatedValueException;
 use AscenderBlog\Domain\Exception\InvalidPasswordException;
 use AscenderBlog\Domain\Exception\InvalidValueObjectException;
+use AscenderBlog\Domain\Exception\ValueAlreadyExistsException;
 use AscenderBlog\Domain\Service\Security\PasswordHasher;
 use AscenderBlog\Domain\Service\Uuid\UuidService;
 use AscenderBlog\Infrastructure\Persistence\Pdo\Repository\PdoUserRepository;
+use AscenderBlog\Infrastructure\Presenter\DuplicatedValueErroPresenter;
 use AscenderBlog\Infrastructure\Security\ArgonPasswordHasher;
 use AscenderBlog\Infrastructure\Uuid\RamseyUuidService;
 
@@ -30,6 +32,7 @@ final readonly class RegisterUseCase
     /**
      * @throws InvalidPasswordException
      * @throws InvalidValueObjectException
+     * @throws DuplicatedValueException
      */
     public function execute(RegisterInputDTO $input): RegisterOutputDTO
     {

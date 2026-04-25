@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace AscenderBlog\Infrastructure\Presenter;
 
-use AscenderBlog\Domain\Entity\User;
-
-final readonly class RegistrationPresenter implements PresenterInterface
+final readonly class RegistrationPresenter implements EntityPresenterInterface
 {
     /**
      * @param object<User> $entity

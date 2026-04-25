@@ -7,7 +7,7 @@ namespace AscenderBlog\Infrastructure\Presenter;
 /**
  * @template T of object
  */
-interface PresenterInterface
+interface EntityPresenterInterface
 {
     /**
      * @param T $entity

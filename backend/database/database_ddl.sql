@@ -11,5 +11,3 @@ CREATE TABLE IF NOT EXISTS users(
     password VARCHAR NOT NULL,
     created_at TIMESTAMP DEFAULT NOW()
 );
-
-SELECT * FROM users;

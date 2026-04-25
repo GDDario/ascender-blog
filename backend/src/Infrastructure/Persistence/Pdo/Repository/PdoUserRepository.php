@@ -2,16 +2,18 @@
 
 namespace AscenderBlog\Infrastructure\Persistence\Pdo\Repository;
 
-
 use AscenderBlog\Domain\Entity\User;
+use AscenderBlog\Domain\Exception\DuplicatedValueException;
 use AscenderBlog\Domain\Exception\InvalidValueObjectException;
 use AscenderBlog\Domain\ValueObject\Email;
 use AscenderBlog\Domain\ValueObject\Name;
 use AscenderBlog\Domain\ValueObject\Username;
 use AscenderBlog\Domain\ValueObject\Uuid;
+use AscenderBlog\Infrastructure\Persistence\Pdo\ErrorCodeMapper;
 use AscenderBlog\Infrastructure\Persistence\Pdo\PostgreSqlPdoConnection;
 use DateTime;
 use PDO;
+use PDOException;
 
 final readonly class PdoUserRepository
 {
@@ -24,6 +26,7 @@ final readonly class PdoUserRepository
 
     /**
      * @throws InvalidValueObjectException
+     * @throws DuplicatedValueException
      */
     public function save(User $user): User
     {
@@ -34,13 +37,23 @@ final readonly class PdoUserRepository
             VALUES (:id, :username, :name, :email, :password)
         ");
 
-        $statement->execute([
-            ':id' => $user->id->toString(),
-            ':name' => $user->name->toString(),
-            ':username' => $user->username->toString(),
-            ':email' => $user->email->toString(),
-            ':password' => $user->password
-        ]);
+        try {
+            $statement->execute([
+                ':id' => $user->id->toString(),
+                ':name' => $user->name->toString(),
+                ':username' => $user->username->toString(),
+                ':email' => $user->email->toString(),
+                ':password' => $user->password
+            ]);
+        } catch (PDOException $e) {
+            if (ErrorCodeMapper::isUniqueKeyViolation($e->getCode())) {
+                if ($this->isUsernameError($e->getMessage())) {
+                    throw new DuplicatedValueException("An username {$user->username->toString()} already has been registered.");
+                } elseif ($this->isEmailError($e->getMessage())) {
+                    throw new DuplicatedValueException("An email {$user->email->toString()} already has been registered.");
+                }
+            }
+        }
 
         $this->pdo->commit();
 
@@ -50,9 +63,6 @@ final readonly class PdoUserRepository
         $queryStatement->execute([':id' => $user->id->toString()]);
         $result = $queryStatement->fetch(PDO::FETCH_ASSOC);
 
-//        var_dump($result['created_at']);
-//        exit;
-
         return new User(
             id: new Uuid($result['id']),
             username: new Username($result['username']),
@@ -60,5 +70,15 @@ final readonly class PdoUserRepository
             email: new Email($result['email']),
             createdAt: new DateTime($result['created_at'])
         );
+    }
+
+    private function isUsernameError(string $message): bool
+    {
+        return str_contains($message, 'username');
+    }
+
+    private function isEmailError(string $message): bool
+    {
+        return str_contains($message, 'email');
     }
 }
