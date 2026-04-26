@@ -1,4 +1,5 @@
 pre-commit:
   parallel: true
   jobs:
-    - run: backend/vendor/bin/phpunit
+    - name: Backend tests
+      run: backend/vendor/bin/phpunit
