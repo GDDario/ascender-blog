@@ -1,26 +1,28 @@
 {
-    "name": "ascender-blog/backend",
-    "description": "Monolith PHP backend",
-    "type": "project",
-    "require-dev": {
-        "phpstan/phpstan": "^2.1",
-        "friendsofphp/php-cs-fixer": "^3.94"
-    },
-    "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "AscenderBlog\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "GDDario",
-            "email": "gd.dario.dev@gmail.com"
-        }
-    ],
-    "require": {
-        "php": "^8.4",
-        "ext-pdo": "*",
-        "ramsey/uuid": "^4.9"
+  "name": "ascender-blog/backend",
+  "description": "Monolith PHP backend",
+  "type": "project",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "AscenderBlog\\": "src/",
+      "Test\\": "tests/"
     }
+  },
+  "authors": [
+    {
+      "name": "GDDario",
+      "email": "gd.dario.dev@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^8.4",
+    "ext-pdo": "*",
+    "ramsey/uuid": "^4.9"
+  },
+  "require-dev": {
+    "phpstan/phpstan": "^2.1",
+    "friendsofphp/php-cs-fixer": "^3.94",
+    "phpunit/phpunit": "^13"
+  }
 }

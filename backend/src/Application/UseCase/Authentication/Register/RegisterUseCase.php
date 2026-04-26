@@ -49,6 +49,7 @@ final readonly class RegisterUseCase
             email: $input->email,
             password: $hash
         );
+        $user->validateForCreation();
 
         $createdUser = $this->repository->save($user);
 

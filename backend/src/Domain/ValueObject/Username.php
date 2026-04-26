@@ -40,7 +40,7 @@ final  class Username implements ValueObject
             throw new InvalidValueObjectException('Username cannot exceed 32 characters');
         }
 
-        if (!preg_match('/^[\p{L}\s]+$/u', $value)) {
+        if (!preg_match('/^[\p{L}\s\_]+$/u', $value)) {
             throw new InvalidValueObjectException('Username contains invalid characters');
         }
 
