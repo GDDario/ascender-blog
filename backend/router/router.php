@@ -1,6 +1,7 @@
 <?php
 
 use AscenderBlog\Infrastructure\Http\Request;
+use AscenderBlog\Infrastructure\Http\Request\Request as Request2;
 use AscenderBlog\Infrastructure\Http\Request\RequestMethod;
 use AscenderBlog\Infrastructure\Http\Route\RouteRegistry;
 
