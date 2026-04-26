@@ -6,7 +6,7 @@ namespace AscenderBlog\Domain\ValueObject;
 
 use AscenderBlog\Domain\Exception\InvalidValueObjectException;
 
-final  class Username implements ValueObject
+final class Username implements ValueObject
 {
     private const string REAL_NAME_IN_WORDS = 'Username';
 
@@ -15,8 +15,7 @@ final  class Username implements ValueObject
      */
     public function __construct(
         public string $value
-    )
-    {
+    ) {
         $this->validate($value);
     }
 
@@ -44,7 +43,8 @@ final  class Username implements ValueObject
             throw new InvalidValueObjectException('Username contains invalid characters');
         }
 
-        $this->value = $value;    }
+        $this->value = $value;
+    }
 
     public function getRealNameInWords(): string
     {
