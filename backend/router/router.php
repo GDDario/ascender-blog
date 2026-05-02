@@ -17,6 +17,21 @@ $request = new Request(
     queryParameters: $_GET
 );
 
+// $request2 = new Request2()->withProtocolVersion('1.0');
+// $value = $request2->getProtocolVersion();
+
+// $request2 = new Request2()->withProtocolVersion('1.0');
+
+// echo 'A=[' . $request2->getProtocolVersion() . ']';
+// echo '<br>';
+
+// var_dump($request2->getProtocolVersion());
+// echo '<br>';
+
+// echo 'HEX=[' . bin2hex($request2->getProtocolVersion()) . ']';
+// exit;
+// exit;
+
 /** @var RouteRegistry $registry */
 $registry = require __DIR__ . '/routes.php';
 

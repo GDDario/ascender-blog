@@ -8,15 +8,28 @@ use Psr\Http\Message\StreamInterface;
 class Message implements MessageInterface
 {
     public array $headers = [];
+    public ProtocolVersion $protocolVersion;
+
+    public function __construct()
+    {
+        $serverProtocol = $_SERVER['SERVER_PROTOCOL'];
+        $serverProtocol = str_replace('HTTP/', '', $serverProtocol);
+
+        $this->protocolVersion = ProtocolVersion::from($serverProtocol);
+    }
 
     public function getProtocolVersion(): string
     {
-        // TODO: Implement getProtocolVersion() method.
+        return $this->protocolVersion->value;
     }
 
     public function withProtocolVersion(string $version): MessageInterface
     {
-        // TODO: Implement withProtocolVersion() method.
+        if (!$this->protocolVersion = ProtocolVersion::tryFrom($version)) {
+            throw new RequestException('Invalid http code.');
+        }
+
+        return $this;
     }
 
     public function getHeaders(): array
